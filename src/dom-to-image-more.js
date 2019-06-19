@@ -252,6 +252,14 @@
             function cloneStyle() {
                 copyStyle(window.getComputedStyle(original), clone.style);
 
+                // temporary fix of: https://github.com/tsayen/dom-to-image/issues/125
+                if (util.isChrome() && clone.style.marker && clone.tagName === 'line') {
+                    clone.style.marker = '';
+                }
+                if (util.isChrome() && clone.style.marker && clone.tagName === 'path') {
+                    clone.style.marker = '';
+                }
+
                 function copyStyle(source, target) {
                     if (source.cssText) {
                         target.cssText = source.cssText;
@@ -389,7 +397,8 @@
             escapeXhtml: escapeXhtml,
             makeImage: makeImage,
             width: width,
-            height: height
+            height: height,
+            isChrome: isChrome
         };
 
         function mimes() {
@@ -601,6 +610,10 @@
         function px(node, styleProperty) {
             var value = window.getComputedStyle(node).getPropertyValue(styleProperty);
             return parseFloat(value.replace('px', ''));
+        }
+
+        function isChrome() {
+            return /chrome/i.test( navigator.userAgent );
         }
     }
 

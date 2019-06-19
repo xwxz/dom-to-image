@@ -38,6 +38,12 @@
                     .then(done).catch(done);
             });
 
+            it('should render svg <line> with marker head in <defs> tag', function (done) {
+                loadTestPage('svg-arrow-head/dom-node.html', 'svg-arrow-head/style.css', 'svg-arrow-head/control-image')
+                    .then(renderAndCheck)
+                    .then(done).catch(done);
+            });
+
             it('should handle border', function(done) {
                 loadTestPage('border/dom-node.html', 'border/style.css', 'border/control-image')
                     .then(renderAndCheck)
